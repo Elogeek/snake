@@ -17,15 +17,99 @@ header {
     padding: 20px 10px;
     color: white;
 }
+
+h1 {
+    text-transform: uppercase;
+    font-size: 2.5rem;
+    color: brown;
+    font-weight: bold;
+}
+
+h2 {
+    color: brown;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    position: absolute;
+    top: -60px;
+    left: -230px;
+}
+
 canvas {
-    background-image: url("fond.webp");
+    background-image: url(./images/green.jpg);
+    background-repeat: no-repeat;
     background-size: cover;
 }
-.food i {
-    color: greenyellow;
+
+.gamePage {
+    margin-top: 1rem;
 }
 
-.snake {
-    background-color: orange;
+.rel {
+    position: relative;
 }
 
+.modal-dialog {
+    max-width: 300px;
+}
+
+.modal-body  {
+    text-align: center;
+}
+
+.btn {
+    display: block;
+    width: 15%;
+    font-size: 1rem;
+    background-color: brown;
+    color: #fff;
+    border: 1px solid brown;
+}
+
+.btn:hover {
+    color: brown;
+    background-color: #fff;
+}
+
+.modal-btn {
+    width: 20%;
+}
+
+.buttons {
+    margin-bottom: 10px;
+    position: absolute;
+    top: -70px;
+    left: 140px;
+}
+
+.result img{
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+#fruit, #virus {
+    display: none;
+}
+
+#snake {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+#scoreModal {
+    color: brown;
+    font-weight: bolder;
+}
+
+#pauseBtn, #resumeBtn {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    margin: 5px;
+}
+
+#pauseBtn:hover, #resumeBtn:hover {
+    background-color: #ccc;
+}
