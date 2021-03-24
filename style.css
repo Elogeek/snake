@@ -21,21 +21,25 @@ header {
 h1 {
     text-transform: uppercase;
     font-size: 2.5rem;
-    color: brown;
+    color: #c10000;
     font-weight: bold;
 }
 
 h2 {
-    color: brown;
+    color: #c10000;
     text-transform: uppercase;
     font-size: 1.5rem;
     position: absolute;
     top: -60px;
     left: -230px;
 }
+/*score*/
+#result {
+    text-transform: capitalize;
+}
 
 canvas {
-    background-image: url(./images/green.jpg);
+    background-image: url(./images/green.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -56,18 +60,18 @@ canvas {
     text-align: center;
 }
 
+/*btn start*/
 .btn {
     display: block;
-    width: 15%;
+    width: 8rem;
     font-size: 1rem;
-    background-color: brown;
+    background-color:#c10000;
     color: #fff;
-    border: 1px solid brown;
 }
 
 .btn:hover {
-    color: brown;
-    background-color: #fff;
+    color: white;
+    background-color: greenyellow;
 }
 
 .modal-btn {
@@ -81,7 +85,7 @@ canvas {
     left: 140px;
 }
 
-.result img{
+.result img {
     height: 20px;
     width: 20px;
     margin-right: 10px;
@@ -98,18 +102,39 @@ canvas {
 }
 
 #scoreModal {
-    color: brown;
+    color: #c10000;
     font-weight: bolder;
 }
 
-#pauseBtn, #resumeBtn {
-    cursor: pointer;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    margin: 5px;
+/*rules*/
+.rules {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    height: 182px;
+    width: 16rem;
+    text-align: center;
+    background-image:url("images/fond.jpg");
+    background-size: cover;
+    color:white;
+    font-weight: bold;
 }
 
-#pauseBtn:hover, #resumeBtn:hover {
-    background-color: #ccc;
+.rules h3 {
+    font-size: large;
+    font-style: italic;
+    text-decoration: #c10000 wavy underline;
+    margin-top: 5px;
+    color: white;
+    text-align: center;
+
+}
+
+.rules div {
+    margin-top: 5px;
+    text-align: center;
+}
+/*head dead*/
+#dead {
+    color: #c10000;
 }

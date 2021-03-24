@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Game snake</title>
@@ -9,36 +9,39 @@
 </head>
 <body>
     <div class="gamePage d-flex flex-column justify-content-center align-items-center">
+
         <h1>Le jeu du serpent</h1>
-        <div id="startBtn" class="btn mt-2 mb-4">Start Game?</div>
+        <div id="startBtn" class="btn mt-2 mb-4">Play game</div>
         <div class="rel">
-            <div class="d-flex buttons">
-                <div id="pauseBtn">
-                    <img src="images/pause.png" alt="pause"/>
-                </div>
-                <div id="resumeBtn">
-                    <img src="images/play.png" alt="play"/>
-                </div>
-            </div>
-            <h2 class="mt-3"><span class="result"><img src="images/apple.png" alt="fruit"></span><span id="score">0</span></h2>
+            <h2 class="mt-3" id="result">Score <span class="result"><img src="images/apple.png" alt="fruit"></span><span id="score">0</span></h2>
         </div>
         <canvas id="snakeCanvas" width="500" height="500"></canvas>
         <img id="virus" src="images/virus.png" alt="virus">
         <img id="fruit" src="images/apple.png" alt="fruit">
-        <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <img id="snake" src="images/snake.png" alt="snake">
-                        <p>Game Over! Votre score est: <span id="scoreModal"></span></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn modal-btn" data-dismiss="modal">Ok</button>
-                    </div>
-                </div>
+
+        <!--rules-->
+        <div class="rules">
+            <h3>Instructions</h3>
+            <div>
+                <i class="fas fa-arrow-up"></i> en haut
+            </div>
+            <div>
+                <i class="fas fa-arrow-down"></i> en bas
+            </div>
+            <div>
+                <i class="fas fa-arrow-left"></i> à gauche
+            </div>
+            <div>
+                <i class="fas fa-arrow-right"></i> à droite
+            </div>
+            <div id="dead">
+                <i class="fas fa-skull-crossbones"></i> Eviter les virus, et les bords !
             </div>
         </div>
+
+
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

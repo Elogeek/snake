@@ -1,19 +1,19 @@
 //create area game
 //let gameTry = document.querySelector('#game-area');
 let canvas = document.getElementById("snakeCanvas");
-
 let context = canvas.getContext("2d");
+
 let score = document.getElementById("score");
+
 let startBtn = document.getElementById("startBtn");
-let pauseBtn = document.getElementById("pauseBtn");
-let resumeBtn = document.getElementById("resumeBtn");
+//foods
 let fruit = document.getElementById("fruit");
 let virus = document.getElementById("virus");
+
 let snakeHeadX, snakeHeadY, fruitX, fruitY, virusX, virusY, tail, totalTail, directionVar, direction, previousDir;
 let speed=1, xSpeed, ySpeed;
 const scale = 20;
 let rows = canvas.height / scale;
-let columns = canvas.width / scale;
 let min = scale / 10; //for min coordinate of fruit
 let max = rows - min; //for max
 let gameInterval,  //interval after which screen will be updated
@@ -42,35 +42,17 @@ function reset() {
     ySpeed = 0;
     snakeHeadX = 0;
     snakeHeadY = 0;
-    pauseBtn.style.backgroundColor="#fff";
-    resumeBtn.style.backgroundColor="#fff";
-    playing=false; gameStarted=false;
+    playing = false; gameStarted = false;
     boundaryCollision=false;
 }
 
 function startGame() {
     reset();
-    gameStarted=true;
-    playing=true;
+    gameStarted = true;
+    playing = true;
     fruitPosition();
     virusPosition();
     main();
-}
-
-function pauseGame() {
-    window.clearInterval(gameInterval);
-    window.clearInterval(virusInterval);
-    pauseBtn.style.backgroundColor="#ccc";
-    resumeBtn.style.backgroundColor="#fff";
-    playing=false;
-}
-
-function resumeGame()
-{
-    main();
-    pauseBtn.style.backgroundColor="#fff";
-    resumeBtn.style.backgroundColor="#ccc";
-    playing=true;
 }
 
 //EventListener to check which arrow key is pressed
@@ -78,12 +60,7 @@ window.addEventListener("keydown", pressedKey);
 
 function pressedKey() {
     if(event.keyCode===32 && gameStarted) {
-        if(playing) {
-            pauseGame();
-        }
-        else{
-            resumeGame();
-        }
+
     }
     else {
         previousDir = direction;
@@ -98,7 +75,7 @@ function changeDirection() {
         case "Up":
             //move "up" only when previous direction is not "down"
             if (previousDir !== "Down") {
-                direction=directionVar;
+                direction = directionVar;
                 xSpeed = 0;
                 ySpeed = scale * -speed;
             }
@@ -107,7 +84,7 @@ function changeDirection() {
         case "Down":
             //move "down" only when previous direction is not "up"
             if (previousDir !== "Up") {
-                direction=directionVar;
+                direction = directionVar;
                 xSpeed = 0;
                 ySpeed = scale * speed;
             }
@@ -116,7 +93,7 @@ function changeDirection() {
         case "Left":
             //move "left" only when previous direction is not "right"
             if (previousDir !== "Right") {
-                direction=directionVar;
+                direction = directionVar;
                 xSpeed = scale * -speed;
                 ySpeed = 0;
             }
@@ -125,7 +102,7 @@ function changeDirection() {
         case "Right":
             //move "right" only when previous direction is not "left"
             if (previousDir !== "Left") {
-                direction=directionVar;
+                direction = directionVar;
                 xSpeed = scale * speed;
                 ySpeed = 0;
             }
@@ -156,7 +133,7 @@ function checkCollision() {
         boundaryCollision=true;
     }
     //with virus
-    if(snakeHeadX===virusX && snakeHeadY===virusY) {
+    if(snakeHeadX === virusX && snakeHeadY === virusY) {
         virusCollision=true;
     }
     return (tailCollision || boundaryCollision || virusCollision);
@@ -170,15 +147,15 @@ function drawSnakeHead(color) {
     context.fill();
     //eyes
     context.beginPath();
-    if(direction==="Up") {
+    if(direction === "Up") {
         context.arc(snakeHeadX+(scale/5), snakeHeadY+(scale/5), scale/8, 0, 2 * Math.PI);
         context.arc(snakeHeadX+scale-(scale/5), snakeHeadY+(scale/5), scale/8, 0, 2 * Math.PI);
     }
-    else if(direction==="Down") {
+    else if(direction === "Down") {
         context.arc(snakeHeadX+(scale/5), snakeHeadY+scale-(scale/5), scale/8, 0, 2 * Math.PI);
         context.arc(snakeHeadX+scale-(scale/5), snakeHeadY+scale-(scale/5), scale/8, 0, 2 * Math.PI);
     }
-    else if(direction==="Left") {
+    else if(direction === "Left") {
         context.arc(snakeHeadX+(scale/5), snakeHeadY+(scale/5), scale/8, 0, 2 * Math.PI);
         context.arc(snakeHeadX+(scale/5), snakeHeadY+scale-(scale/5), scale/8, 0, 2 * Math.PI);
     }
@@ -240,32 +217,15 @@ function drawSnake() {
             moveSnakeBack();
         }
         drawSnakeHead("red");
-        setTimeout(()=>{
-            scoreModal.textContent = totalTail;
-            //if modal is shown, remove the keydown event listener so that snake doesn't move
-            $( "#alertModal" ).on('shown.bs.modal', function(){
-                window.removeEventListener("keydown", pressedKey);
-            });
-            //when modal hides, reset every variable and add keydown event listener again
-            $('#alertModal').on('hidden.bs.modal', function () {
-                context.clearRect(0, 0, 500, 500);
-                score.innerText = 0;
-                window.addEventListener("keydown", pressedKey);
-                reset();
-            })
-            modalBtn.addEventListener("click", ()=>{
-                context.clearRect(0, 0, 500, 500);
-                score.innerText = 0;
-            });
-        }, 1000);
+       //game over alert and option (reload)?
     }
 }
 
 //VIRUS//
 function virusPosition() {
-    let virus=generateCoordinates();
-    virusX=virus.xCoordinate;
-    virusY=virus.yCoordinate;
+    let virus = generateCoordinates();
+    virusX = virus.xCoordinate;
+    virusY = virus.yCoordinate;
 }
 
 function drawVirus() {
@@ -273,11 +233,11 @@ function drawVirus() {
 }
 
 //FRUIT//
-//generate random fruit position within canvas boundaries
+//generate random fruit position with in canvas
 function fruitPosition() {
-    let fruit=generateCoordinates();
-    fruitX=fruit.xCoordinate;
-    fruitY=fruit.yCoordinate;
+    let fruit = generateCoordinates();
+    fruitX = fruit.xCoordinate;
+    fruitY = fruit.yCoordinate;
 }
 
 //draw image of fruit
@@ -287,18 +247,18 @@ function drawFruit() {
 
 //MAIN GAME//
 function checkSamePosition() {
-    if(fruitX===virusX && fruitY===virusY) {
+    if(fruitX === virusX && fruitY === virusY) {
         virusPosition();
     }
-    for(let i=0; i< tail.length; i++){
-        if(virusX===tail[i].tailX && virusY===tail[i].tailY)
+    for(let i=0; i < tail.length; i++){
+        if(virusX === tail[i].tailX && virusY === tail[i].tailY)
         {
             virusPosition();
             break;
         }
     }
-    for(let i=0; i< tail.length; i++){
-        if(fruitX===tail[i].tailX && fruitY===tail[i].tailY)
+    for(let i = 0; i < tail.length; i++){
+        if(fruitX === tail[i].tailX && fruitY === tail[i].tailY)
         {
             fruitPosition();
             break;
@@ -321,7 +281,7 @@ function main() {
         if (snakeHeadX === fruitX && snakeHeadY === fruitY) {
             totalTail++;
             //increase the speed of game after every 20 points
-            if(totalTail%20===0 && intervalDuration>minDuration) {
+            if(totalTail%20 === 0 && intervalDuration>minDuration) {
                 clearInterval(gameInterval);
                 window.clearInterval(virusInterval);
                 intervalDuration=intervalDuration-10;
