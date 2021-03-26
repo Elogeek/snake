@@ -18,12 +18,11 @@ let min = scale / 10; //for min coordinate of fruit
 let max = rows - min; //for max
 let gameInterval,  //interval after which screen will be updated
     virusInterval, //interval after which virus position will be updated
-    intervalDuration=150, //starting screen updation interval
-    minDuration=75; //minimum screen updation interval
+    intervalDuration = 150, //starting screen updation interval
+    minDuration = 75; //minimum screen updation interval
 let playing, gameStarted;
 let boundaryCollision;
 let tail0;
-
 
 startBtn.addEventListener("click", startGame);
 
@@ -139,7 +138,10 @@ function checkCollision() {
     return (tailCollision || boundaryCollision || virusCollision);
 }
 
-//SNAKe//
+//Snake
+//draw Snake Head (), drawSnakeBody() ==> the snake is drawn using the x and y coordinates of each part of its body, where x and y represent the upper left corner of that part.
+//the context.arc method is used here to draw a circle for the head part and eyes
+//the “scale” variable stores the number of pixels that each part of the snake's body takes up
 function drawSnakeHead(color) {
     context.beginPath();
     context.arc(snakeHeadX+scale/2, snakeHeadY+scale/2, scale/2, 0, 2 * Math.PI);
@@ -166,11 +168,11 @@ function drawSnakeHead(color) {
     context.fillStyle = "black";
     context.fill();
 }
-
+//draw the snake tail
 function drawSnakeTail() {
     let tailRadius = scale/4;
     for (let i = 0; i < tail.length; i++) {
-        tailRadius=tailRadius+((scale/2-scale/4)/tail.length);
+        tailRadius = tailRadius+((scale/2-scale/4)/tail.length);
         context.beginPath();
         context.fillStyle = "#6c2c3a";
         context.arc((tail[i].tailX+scale/2), (tail[i].tailY+scale/2), tailRadius, 0, 2 * Math.PI);
@@ -178,9 +180,14 @@ function drawSnakeTail() {
     }
 }
 
+//moveSnakeForward () function shifts the coordinates of the snakehead to the next position.
+// the variables xSpeed and ySpeed represent movement, if the snake is moving horizontally,
+// xSpeed will be equal to 'scale' (positive for the right and negative for the left direction) and ySpeed
+// will be equal to zero and vice versa. So, the new snake head value is assigned using these variables.
+
 //shift snake's previous positions to next position
 function moveSnakeForward() {
-    tail0=tail[0];
+    tail0 = tail[0];
     for (let i = 0; i < tail.length - 1; i++) {
         tail[i] = tail[i + 1];
     }
@@ -196,7 +203,7 @@ function moveSnakeBack()
     for (let i = tail.length-1; i >= 1; i--) {
         tail[i] = tail[i - 1];
     }
-    if(tail.length>=1) {
+    if(tail.length >= 1) {
         tail[0] = { tailX: tail0.tailX, tailY: tail0.tailY };
     }
     snakeHeadX -= xSpeed;
@@ -217,9 +224,30 @@ function drawSnake() {
             moveSnakeBack();
         }
         drawSnakeHead("red");
-       //game over alert and option (reload)?
+        setTimeout(()=> {
+            let scoreModal = document.getElementById("scoreModal");
+            scoreModal.textContent = totalTail;
+            $('#myModal').modal('show');
+            //if modal is shown, remove the keydown event listener so that snake doesn't move
+            $( "#alertModal" ).on('shown.bs.modal', function(){
+                window.removeEventListener("keydown", pressedKey);
+            });
+            //when modal hides, reset every variable and add keydown event listener again
+            $('this').on('hidden.bs.modal', function () {
+                context.clearRect(0, 0, 500, 500);
+                score.innerText = "0";
+                window.addEventListener("keydown", pressedKey);
+                reset();
+            })
+            let modalBtn = document.getElementById("close");
+            modalBtn.addEventListener("click", ()=>{
+                context.clearRect(0, 0, 500, 500);
+                score.innerText = "0";
+            });
+        }, 1000);
     }
 }
+
 
 //VIRUS//
 function virusPosition() {
