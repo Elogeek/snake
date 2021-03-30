@@ -226,8 +226,7 @@ function drawSnake() {
         drawSnakeHead("red");
         setTimeout(()=> {
             let scoreModal = document.getElementById("score");
-            scoreModal.textContent = totalTail;
-            alert('Vous avez perdu ! Votre score est de : ' + totalTail);
+            scoreModal += alert('Vous avez perdu ! Votre score est de : ' + totalTail);
         }, 1000);
     }
 }
