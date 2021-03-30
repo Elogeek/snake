@@ -3,7 +3,7 @@
 let canvas = document.getElementById("snakeCanvas");
 let context = canvas.getContext("2d");
 
-let score = document.getElementById("score");
+let score = document.querySelector(".score");
 
 let startBtn = document.getElementById("startBtn");
 //foods
@@ -225,25 +225,9 @@ function drawSnake() {
         }
         drawSnakeHead("red");
         setTimeout(()=> {
-            let scoreModal = document.getElementById("scoreModal");
+            let scoreModal = document.getElementById("score");
             scoreModal.textContent = totalTail;
-            $('#myModal').modal('show');
-            //if modal is shown, remove the keydown event listener so that snake doesn't move
-            $( "#alertModal" ).on('shown.bs.modal', function(){
-                window.removeEventListener("keydown", pressedKey);
-            });
-            //when modal hides, reset every variable and add keydown event listener again
-            $('this').on('hidden.bs.modal', function () {
-                context.clearRect(0, 0, 500, 500);
-                score.innerText = "0";
-                window.addEventListener("keydown", pressedKey);
-                reset();
-            })
-            let modalBtn = document.getElementById("close");
-            modalBtn.addEventListener("click", ()=>{
-                context.clearRect(0, 0, 500, 500);
-                score.innerText = "0";
-            });
+            alert('Vous avez perdu ! Votre score est de : ' + totalTail);
         }, 1000);
     }
 }
